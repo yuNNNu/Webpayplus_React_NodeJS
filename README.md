@@ -1,6 +1,6 @@
 # React & NodeJS 🚀🚀
 
-> Base project integration for WebpayPlus
+> Unofficial base project integration for WebpayPlus
 
 ## Clone and then install dependencies
 
