@@ -1,20 +1,13 @@
-require("./../config/Config");
 const {
   createTransaction,
   commitTransaction,
   statusTransaction,
 } = require("../service/transaction.service");
-
-let randomBuyOrderNumber = () => {
-  const dateNow = Date.now();
-  const randomNumber = Math.round(Math.abs(Math.random() + 0.5) * 10000000000);
-  let buyOrder = "" + dateNow + randomNumber;
-  // this was for an internal transbank variable condition of "buy_order" in the official doc
-  if (buyOrder.length >= 26) {
-    buyOrder = randomBuyOrderNumber();
-  }
-  return buyOrder;
-};
+const {
+  randomBuyOrderNumber,
+  ApprovedOrRejectedMessage,
+} = require("../../server/service/utilities.service");
+require("./../config/Config");
 
 let create = async (req, res) => {
   try {
@@ -41,11 +34,7 @@ let commit = async (req, res) => {
     const token = req.body.token_ws;
     const responseCommitTransaction = await commitTransaction(token);
     const responseCode = responseCommitTransaction.response_code;
-    if (responseCode === 0) {
-      console.log("Approved Transaction ~ 🚀");
-    } else {
-      console.log("Transaction Rejected ~ 🚀");
-    }
+    ApprovedOrRejectedMessage(responseCode);
     const routeRedirect = `${process.env.HOSTROUTE}/voucher/${token}`;
     res.redirect(routeRedirect);
   } catch (err) {
@@ -64,6 +53,10 @@ let status = async (req, res) => {
     res.status(200).send(responseStatusTransaction);
   } catch (err) {
     res.status(400).send(err);
+    console.log(
+      "🚀 ~ file: transaction.controller.js ~ line 56 ~ status ~ err",
+      err
+    );
   }
 };
 
