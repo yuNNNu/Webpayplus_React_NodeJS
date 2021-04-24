@@ -18,7 +18,7 @@
 - npm install --save
 - nodemon index.js
 
-> Init unit testing in both folders
+> Init unit testing in both folders (front-end test are in src folder)
 
 - npm t
 - Press "a" to run all test
