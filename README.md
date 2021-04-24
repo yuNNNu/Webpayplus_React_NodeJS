@@ -5,11 +5,23 @@
 ## Clone and then install dependencies
 
 - git clone https://github.com/yuNNNu/webpayplus_React_NodeJS.git
-- cd Webpayplus_React_NodeJS
+
+> Front End
+
+- cd front-end
 - npm install --save
 - npm start
+
+> Back End
+
 - cd server
+- npm install --save
 - nodemon index.js
+
+> Init unit testing in both folders
+
+- npm t
+- Press "a" to run all test
 
 ---
 

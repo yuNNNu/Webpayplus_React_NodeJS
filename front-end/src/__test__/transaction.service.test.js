@@ -1,4 +1,4 @@
-import { create, status } from "../../src/service/Transaction.service";
+import { create, status } from "../service/Transaction.service";
 
 describe("Transaction Services", () => {
   test("Create transaction returns url", async () => {
