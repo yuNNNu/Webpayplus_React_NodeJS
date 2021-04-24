@@ -1,43 +1,41 @@
 import { API } from "./../config/Config";
+const axios = require("axios");
+const headers = { "Content-Type": "application/json" };
 
-export const create = (data) => {
+export const create = async (data) => {
   const url = `${API}/create`;
-  const params = {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json" },
-  };
-  return fetch(url, params)
-    .then((response) => {
-      return response.json();
-    })
-    .then((result) => {
-      return result;
-    })
-    .then((err) => {
-      return err;
-    });
+  try {
+    const result = await axios.post(
+      url,
+      {
+        amount: data.amount,
+      },
+      {
+        headers: headers,
+      }
+    );
+    return result.data;
+  } catch (err) {
+    console.error(
+      "🚀 ~ file: Transaction.service.js ~ line 18 ~ create ~ err",
+      err
+    );
+  }
 };
 
-export const status = (token) => {
+export const status = async (token) => {
   const url = `${API}/status/${token}`;
-  const params = {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  };
-
-  return fetch(url, params)
-    .then((response) => {
-      return response.json();
-    })
-    .then((result) => {
-      return result;
-    })
-    .then((err) => {
-      return err;
+  try {
+    const result = await axios.get(url, {
+      headers: headers,
     });
+    return result.data;
+  } catch (err) {
+    console.error(
+      "🚀 ~ file: Transaction.service.js ~ line 39 ~ status ~ err",
+      err
+    );
+  }
 };
 
 export const approvedOrRejected = (response_code) => {

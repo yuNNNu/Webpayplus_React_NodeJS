@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
-import {
-  status,
-  approvedOrRejected,
-} from "./../../service/Transaction.service";
+import { status, approvedOrRejected } from "../../service/Transaction.service";
 export default function Paid() {
   /*=============================================
 	                TOKEN PARAM
@@ -25,16 +22,16 @@ export default function Paid() {
 	               EXECUTE SERVICE
 	=============================================*/
   const receiveStatusValues = async () => {
-    const result = await status(token);
-    const title = await approvedOrRejected(result.response_code);
+    const responseStatus = await status(token);
+    const title = await approvedOrRejected(responseStatus.response_code);
     setVoucher({
       title: title,
-      buy_order: result.buy_order,
-      amount: result.amount,
-      card_detail: result.card_detail,
-      transaction_date: result.transaction_date,
-      payment_type_code: result.payment_type_code,
-      installments_number: result.installments_number,
+      buy_order: responseStatus.buy_order,
+      amount: responseStatus.amount,
+      card_detail: responseStatus.card_detail,
+      transaction_date: responseStatus.transaction_date,
+      payment_type_code: responseStatus.payment_type_code,
+      installments_number: responseStatus.installments_number,
     });
   };
   receiveStatusValues();

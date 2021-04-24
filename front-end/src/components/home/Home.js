@@ -40,8 +40,9 @@ export default function Home() {
       return;
     }
     if (isAmountANumber) {
-      const result = await create(transaction);
-      window.open(result.url, "_blank");
+      const responseCreate = await create(transaction);
+      const url = responseCreate.url;
+      window.open(url, "_blank");
     } else {
       Swal.fire(
         "Ha ocurrido un problema!",
